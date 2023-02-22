@@ -55,8 +55,10 @@ if (!require(emmeans)) {
   install.packages("emmeans")
   library(emmeans)
 }
+#use emmeans in pairwise comparisons and simple contrasts
 library(emmeans)
-noise # noise dataset included in package
+auto.noise # noise dataset included in package
 noise.lm <- lm(noise/10 ~ size * type * side, data = auto.noise)
 anova(noise.lm) #Anova of auto noise dataset
 emm_s.t <- emmeans(noise.lm, pairwise ~ size | type)
+noise.emm <- emmeans(noise.lm, ~ size * side * type)
