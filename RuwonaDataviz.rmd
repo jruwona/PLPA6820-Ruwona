@@ -17,40 +17,59 @@ library(markdown)
 ```{r}
 getwd()
 ```
-# # Read in data,load ggplot library and plot boxplot
+# 2. Make a boxplot using ggplot with DON as the y variable, treatment as the x variable, and color mapped to the wheat cultivar. Show the code you use to load the libraries you need read in the data and make the plot. Change the y label to “DON (ppm)” and make the x label blank
+
+# #Read in data,load ggplot library and plot boxplot
 ```{r}
 library(ggplot2)
 
-MycotoxinData <- read.csv("MycotoxinData.csv", na.strings = ".")
+MycotoxinData <- read.csv("MycotoxinData.csv", na.strings = "na", header = TRUE)
+sum(is.na(MycotoxinData))
 
-ggplot(MycotoxinData, aes(x = Treatment, y = DON, fill = Cultivar))+
-    geom_boxplot()
+#make plot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
     ylab("DON (ppm)") +
     xlab("") +
     scale_fill_discrete(name = "Wheat Cultivar")
+    
 ```
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+#3. Now convert this same data into a bar chart with standard-error error bars
+
+## Make bar chart using the Mycotoxin data with standard error bars
+```{r}
+library(ggplot2)
+#calculate means and standard errors for each group
+ ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+    stat_summary(fun=mean,geom="bar", position = "dodge") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
+    ylab("DON (ppm)") +
+    xlab("")
 ```
+```{r}
+# Add points to the boxplot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
+    geom_jitter(aes(shape=Cultivar), position=position_jitterdodge(jitter.width=0.2, dodge.width=0.9), size=2, stroke=0.5) +
+    ylab("DON (ppm)") +
+    xlab("") +
+    scale_fill_discrete(name = "Cultivar")
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+#add points to the bar chart using the Mycotoxin data with standard error bars
+```{r}
+library(ggplot2)
+#calculate means and standard errors for each group
+ ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+    stat_summary(fun=mean,geom="bar", position = "dodge") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
+    geom_jitter(aes(shape=Cultivar), position=position_jitterdodge(jitter.width=0.2, dodge.width=0.9), size=2, stroke=0.5) +
+    ylab("DON (ppm)") +
+    xlab("")
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#Change the color and fill 
+```{r}
+```
