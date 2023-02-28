@@ -49,27 +49,120 @@ library(ggplot2)
     ylab("DON (ppm)") +
     xlab("")
 ```
+# 3. Add points to the foreground of the boxplot and bar chart you made in questions 2 and 3 that show the distribution of points over the boxplots or bars. Set the shape = 21 and outline color black (hint: use jitter_dodge). 
+# # Boxplot with points to the foreground
 ```{r}
-# Add points to the boxplot
 ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
     geom_boxplot() +
-    geom_jitter(aes(shape=Cultivar), position=position_jitterdodge(jitter.width=0.2, dodge.width=0.9), size=2, stroke=0.5) +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
     ylab("DON (ppm)") +
     xlab("") +
     scale_fill_discrete(name = "Cultivar")
 
 ```
-#add points to the bar chart using the Mycotoxin data with standard error bars
+# # Bar chart with points to the foreground
 ```{r}
 library(ggplot2)
-#calculate means and standard errors for each group
- ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
     stat_summary(fun=mean,geom="bar", position = "dodge") +
     stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
-    geom_jitter(aes(shape=Cultivar), position=position_jitterdodge(jitter.width=0.2, dodge.width=0.9), size=2, stroke=0.5) +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
     ylab("DON (ppm)") +
     xlab("")
 ```
-#Change the color and fill 
+# 5. Change the color and fill of the points and boxplots to match some of the colors in the following colorblind pallet. cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
 ```{r}
+# The palette with black:
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+#boxplot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("") +
+    scale_fill_discrete(name = "Cultivar")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) 
+
+#barchat
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+    stat_summary(fun=mean,geom="bar", position = "dodge") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) 
+```
+# 6. Add a facet to the plots based on cultivar
+```{r}
+# The palette with black:
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+#boxplot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("") +
+    scale_fill_discrete(name = "Cultivar")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) +
+    facet_wrap(~Cultivar)
+
+#barchart
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+    stat_summary(fun=mean,geom="bar", position = "dodge") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) +
+    facet_wrap(~Cultivar)
+```
+# 7. Explore the themes and change to a theme of interest. https://ggplot2.tidyverse.org/reference/ggtheme.html
+```{r}
+# The palette with black:
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+#boxplot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("") +
+    scale_fill_discrete(name = "Cultivar")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) +
+    facet_wrap(~Cultivar) +
+    theme_dark()
+
+#barchart
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar))+
+    stat_summary(fun=mean,geom="bar", position = "dodge") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("")+
+    scale_fill_manual(values = cbbPalette) +
+    scale_color_manual(values = cbbPalette) +
+    facet_wrap(~Cultivar) +
+    theme_linedraw()
+```
+# 8. Add transparency to the points so you can still see the boxplot or bar in the background. 
+```{r}
+
+#boxplot
+ggplot(MycotoxinData, aes(x = Treatment, y = DON, color = Cultivar))+
+    geom_boxplot() +
+    geom_jitter(aes(color = Cultivar), shape = 21, size = 3, position = position_jitterdodge(jitter.width = 0.2, jitter.height = 0)) +
+    ylab("DON (ppm)") +
+    xlab("") +
+    scale_fill_discrete(name = "Cultivar")+
+    theme_bw()
+
 ```
