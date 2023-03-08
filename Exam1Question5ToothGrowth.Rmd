@@ -1,0 +1,58 @@
+---
+title: "Question6ToothGrowth"
+author: "Justice Ruwona"
+date: "2023-03-08"
+output: 
+        word_document: default
+        html_document:
+        keep_md: yes
+---
+
+## Load the datset
+```{r}
+data(ToothGrowth)
+str(ToothGrowth)
+```
+
+## Using Subset method
+
+### Subset ToothGrowth to include rows such that supp is equal to VC:
+
+```{r}
+VC_data <- subset(ToothGrowth, supp == "VC")
+str(VC_data)
+```
+### Subset ToothGrowth to include rows such that supp is equal to VC and dose is equal to 0.5:
+```{r}
+VC_dose_data <- subset(ToothGrowth, supp == "VC" & dose == 0.5)
+str(VC_dose_data)
+```
+
+
+### Subset ToothGrowth to include the values of len such that supp is equal to VC and dose is equal to 0.5:
+
+```{r}
+VC_dose_len <- subset(ToothGrowth, supp == "VC" & dose == 0.5, select = len)
+str(VC_dose_len)
+```
+
+## Using Indexing method
+### Subset ToothGrowth to include rows such that supp is equal to VC:
+```{r}
+toothgrowth_vc <- ToothGrowth[ToothGrowth$supp == "VC", ]
+str(toothgrowth_vc)
+```
+### Subset ToothGrowth to include rows such that supp is equal to VC and dose is equal to 0.5:
+```{r}
+toothgrowth_vc_dose <- ToothGrowth[ToothGrowth$supp == "VC" & ToothGrowth$dose == 0.5, ]
+str(toothgrowth_vc_dose)
+```
+### Subset ToothGrowth to include the values of len such that supp is equal to VC and dose is equal to 0.5:
+```{r}
+toothgrowth_vc_dose_len <- ToothGrowth$len[ToothGrowth$supp == "VC" & ToothGrowth$dose == 0.5]
+str(toothgrowth_vc_dose_len)
+```
+
+
+
+
