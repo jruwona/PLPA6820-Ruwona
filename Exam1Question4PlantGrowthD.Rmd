@@ -1,0 +1,53 @@
+---
+title: "Exam1#$"
+author: "Justice Ruwona"
+date: "2023-03-08"
+output:
+      word_document: default
+      html_document:
+      keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(ggplot2)
+
+ggplot(PlantGrowth, aes(x = group, y = weight)) +
+  geom_boxplot() +
+  geom_point() +
+  labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)")
+
+```
+```{r}
+library(ggplot2)
+
+ggplot(PlantGrowth, aes(x = group, y = weight, color = group)) +
+  geom_boxplot() +
+  geom_point() +
+  scale_color_discrete(name = "Treatment\nGroup", labels = c("Control", "Treatment 1", "Treatment 2"))+
+  labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)")
+
+```
+```{r}
+library(ggplot2)
+
+ggplot(PlantGrowth, aes(x = group, y = weight, color = group)) +
+  geom_boxplot() +
+  geom_point() +
+  scale_color_discrete(name = "Treatment\nGroup", labels = c("Control", "Treatment 1", "Treatment 2")) +
+  labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)") +
+theme_bw()
+```
+```{r}
+ggplot(PlantGrowth, aes(x=weight)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "white") +
+  facet_wrap(~ group, nrow = 1)
+  
+```
+
+
