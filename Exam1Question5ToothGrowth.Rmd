@@ -3,9 +3,9 @@ title: "Question6ToothGrowth"
 author: "Justice Ruwona"
 date: "2023-03-08"
 output: 
-        word_document: default
-        html_document:
-        keep_md: yes
+  word_document: default
+  html_document:
+    keep_md: yes
 ---
 
 ## Load the datset
