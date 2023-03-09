@@ -1,18 +1,18 @@
 ---
-title: "Exam1#$"
+title: "Exam1Question4"
 author: "Justice Ruwona"
 date: "2023-03-08"
 output:
       word_document: default
       html_document:
-      keep_md: yes
+        keep_md: yes
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Load PlantGrowth dataset
+```{r}
+data(PlantGrowth)
+head(PlantGrowth) #check for data
 ```
-
-## R Markdown
+##  Layering concept
 
 ```{r}
 library(ggplot2)
@@ -23,6 +23,13 @@ ggplot(PlantGrowth, aes(x = group, y = weight)) +
   labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)")
 
 ```
+
+## Scales concept
+```
+
+
+```
+
 ```{r}
 library(ggplot2)
 
@@ -33,6 +40,11 @@ ggplot(PlantGrowth, aes(x = group, y = weight, color = group)) +
   labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)")
 
 ```
+```
+
+
+```
+## Themes concept
 ```{r}
 library(ggplot2)
 
@@ -43,6 +55,10 @@ ggplot(PlantGrowth, aes(x = group, y = weight, color = group)) +
   labs(title="Plant Growth by Treatment Group", x="Treatment Group", y="Weight (gm)") +
 theme_bw()
 ```
+
+## Facets
+
+
 ```{r}
 ggplot(PlantGrowth, aes(x=weight)) +
   geom_histogram(binwidth = 1, color = "black", fill = "white") +
